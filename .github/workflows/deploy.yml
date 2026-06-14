@@ -1,32 +1,155 @@
-name: Deploy to Vercel
+name: 🚀 Deploy to Vercel
 
 on:
+  # 当 push 到 main 分支时触发
   push:
     branches:
       - main
+  
+  # 允许手动触发部署
   workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署环境'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - preview
 
+# 设置环境变量
+env:
+  NODE_VERSION: '20'
+  VERCEL_CLI_VERSION: 'latest'
+
+# 定义任务
 jobs:
-  deploy:
+  # 部署到生产环境
+  deploy-production:
+    if: github.event.inputs.environment != 'preview'
     runs-on: ubuntu-latest
+    environment: production
+    
     steps:
-      - name: Checkout code
+      # 1. 检出代码
+      - name: 📥 Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup Node.js
+      # 2. 设置 Node.js 环境
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      # 3. 安装依赖
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      # 4. 安装 Vercel CLI
+      - name: 🔧 Install Vercel CLI
+        run: npm install -g vercel@${{ env.VERCEL_CLI_VERSION }}
+
+      # 5. 配置 Vercel
+      - name: ⚙️ Configure Vercel
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # 6. 构建项目
+      - name: 🔨 Build Project
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # 7. 部署到生产环境
+      - name: 🚀 Deploy to Production
+        id: deploy
+        run: |
+          echo "deploy_url=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # 8. 获取部署 URL
+      - name: 🔗 Get Deployment URL
+        run: echo "🚀 Production URL: ${{ steps.deploy.outputs.deploy_url }}"
+
+      # 9. 部署成功通知
+      - name: ✅ Deployment Success
+        if: success()
+        run: |
+          echo "================================"
+          echo "✅ 部署成功！"
+          echo "🌐 网站地址: ${{ steps.deploy.outputs.deploy_url }}"
+          echo "📅 部署时间: $(date)"
+          echo "👤 部署者: ${{ github.actor }}"
+          echo "================================"
+
+      # 10. 部署失败通知
+      - name: ❌ Deployment Failed
+        if: failure()
+        run: |
+          echo "================================"
+          echo "❌ 部署失败！"
+          echo "📅 失败时间: $(date)"
+          echo "👤 操作者: ${{ github.actor }}"
+          echo "🔍 请检查日志"
+          echo "================================"
+
+  # 部署到预览环境
+  deploy-preview:
+    if: github.event.inputs.environment == 'preview'
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 检出代码
+      - name: 📥 Checkout code
+        uses: actions/checkout@v5
+
+      # 2. 设置 Node.js 环境
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      # 3. 安装依赖
+      - name: 📦 Install dependencies
+        run: npm ci
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+      # 4. 安装 Vercel CLI
+      - name: 🔧 Install Vercel CLI
+        run: npm install -g vercel@${{ env.VERCEL_CLI_VERSION }}
 
-      - name: Deploy to Vercel
-        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      # 5. 部署到预览环境
+      - name: 🚀 Deploy to Preview
+        id: deploy
+        run: |
+          echo "preview_url=$(vercel --yes --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+
+      # 6. 获取预览 URL
+      - name: 🔗 Get Preview URL
+        run: echo "🔍 Preview URL: ${{ steps.deploy.outputs.preview_url }}"
+
+  # 代码质量检查（可选）
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v5
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Run linter
+        run: npm run lint || echo "No linter configured"
