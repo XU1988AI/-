@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "deploy": "node auto-deploy.js",
+    "deploy:check": "powershell -ExecutionPolicy Bypass -File auto-deploy.ps1",
+    "deploy:trigger": "git add . && git commit -m '自动部署更新' && git push origin main",
+    "vercel": "vercel",
+    "vercel:prod": "vercel --prod"
   },
   "keywords": ["shouzhan", "赚钱", "app分享"],
   "author": "",
