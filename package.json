@@ -1,0 +1,18 @@
+{
+  "name": "shouzhan-platform",
+  "version": "1.0.0",
+  "description": "专业的手机赚钱软件分享平台",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["shouzhan", "赚钱", "app分享"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
+  }
+}

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 手赚网</title>
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+    <div class="admin-container" id="adminContainer">
+        <!-- 登录页面 -->
+        <div class="login-page" id="loginPage">
+            <div class="login-box">
+                <h2>🔐 管理后台登录</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" name="username" placeholder="请输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" name="password" placeholder="请输入密码">
+                    </div>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </form>
+                <p class="login-tip">用户名: admin | 密码: admin123</p>
+            </div>
+        </div>
+
+        <!-- 管理后台主界面 -->
+        <div class="admin-main" id="adminMain" style="display: none;">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1>💰 手赚网管理后台</h1>
+                </div>
+                <div class="header-right">
+                    <span>欢迎, <span id="currentUser">admin</span></span>
+                    <button class="btn btn-secondary" onclick="logout()">退出登录</button>
+                </div>
+            </header>
+
+            <div class="admin-body">
+                <aside class="admin-sidebar">
+                    <nav class="nav-menu">
+                        <a href="#" class="nav-item active" data-tab="apps">
+                            <span class="icon">📱</span> 应用管理
+                        </a>
+                        <a href="#" class="nav-item" data-tab="categories">
+                            <span class="icon">📁</span> 分类管理
+                        </a>
+                        <a href="#" class="nav-item" data-tab="news">
+                            <span class="icon">📰</span> 资讯管理
+                        </a>
+                        <a href="#" class="nav-item" data-tab="homepage">
+                            <span class="icon">🏠</span> 首页配置
+                        </a>
+                    </nav>
+                </aside>
+
+                <main class="admin-content">
+                    <!-- 应用管理 -->
+                    <div class="tab-content" id="apps">
+                        <div class="content-header">
+                            <h2>应用管理</h2>
+                            <button class="btn btn-primary" onclick="showAppModal()">添加应用</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>图标</th>
+                                    <th>名称</th>
+                                    <th>分类</th>
+                                    <th>平台</th>
+                                    <th>下载量</th>
+                                    <th>评分</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appsTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- 分类管理 -->
+                    <div class="tab-content" id="categories" style="display: none;">
+                        <div class="content-header">
+                            <h2>分类管理</h2>
+                            <button class="btn btn-primary" onclick="showCategoryModal()">添加分类</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>图标</th>
+                                    <th>名称</th>
+                                    <th>首页显示数</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- 资讯管理 -->
+                    <div class="tab-content" id="news" style="display: none;">
+                        <div class="content-header">
+                            <h2>资讯管理</h2>
+                            <button class="btn btn-primary" onclick="showNewsModal()">添加资讯</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>分类</th>
+                                    <th>浏览量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="newsTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- 首页配置 -->
+                    <div class="tab-content" id="homepage" style="display: none;">
+                        <div class="homepage-config">
+                            <!-- 布局预设选择 -->
+                            <div class="config-section">
+                                <h3>🎨 布局预设</h3>
+                                <p class="config-desc">快速选择预设布局方案</p>
+                                <div class="layout-presets">
+                                    <div class="preset-card active" data-preset="default">
+                                        <div class="preset-icon">📱</div>
+                                        <div class="preset-name">默认布局</div>
+                                        <div class="preset-desc">标准三栏布局</div>
+                                    </div>
+                                    <div class="preset-card" data-preset="compact">
+                                        <div class="preset-icon">📦</div>
+                                        <div class="preset-name">紧凑布局</div>
+                                        <div class="preset-desc">减少侧边栏宽度</div>
+                                    </div>
+                                    <div class="preset-card" data-preset="wide">
+                                        <div class="preset-icon">🖥️</div>
+                                        <div class="preset-name">宽屏布局</div>
+                                        <div class="preset-desc">扩大主内容区</div>
+                                    </div>
+                                    <div class="preset-card" data-preset="mobile">
+                                        <div class="preset-icon">📲</div>
+                                        <div class="preset-name">移动端优先</div>
+                                        <div class="preset-desc">优化移动端体验</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 全局布局设置 -->
+                            <div class="config-section">
+                                <h3>⚙️ 全局布局设置</h3>
+                                <div class="config-row-group">
+                                    <div class="config-row">
+                                        <label>网站标题：</label>
+                                        <input type="text" name="site_title" value="手赚网" class="input-medium">
+                                    </div>
+                                    <div class="config-row">
+                                        <label>网站副标题：</label>
+                                        <input type="text" name="site_subtitle" value="专业手机赚钱软件分享平台" class="input-medium">
+                                    </div>
+                                    <div class="config-row">
+                                        <label>主内容区宽度：</label>
+                                        <select name="content_width">
+                                            <option value="fixed">固定宽度(1200px)</option>
+                                            <option value="fluid">流式布局</option>
+                                            <option value="wide">宽屏(1400px)</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-row">
+                                        <label>侧边栏宽度：</label>
+                                        <input type="number" name="sidebar_width" value="280" min="200" max="400" class="input-small">
+                                        <span class="config-unit">px</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 模块顺序配置 -->
+                            <div class="config-section">
+                                <h3>📋 模块顺序配置</h3>
+                                <p class="config-desc">拖动模块调整显示顺序，勾选启用模块</p>
+                                <div class="module-list" id="moduleList">
+                                    <div class="module-item" data-module="banner">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">🖼️</span>
+                                            <span class="module-name">Banner广告</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="banner_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="banner_count" value="3" min="1" max="10">
+                                            </div>
+                                            <div class="config-row">
+                                                <label>自动轮播：</label>
+                                                <select name="banner_autoplay">
+                                                    <option value="true">开启</option>
+                                                    <option value="false">关闭</option>
+                                                </select>
+                                            </div>
+                                            <div class="config-row">
+                                                <label>轮播间隔：</label>
+                                                <input type="number" class="input-small" name="banner_interval" value="5" min="2" max="10">
+                                                <span class="config-unit">秒</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-item" data-module="dynamic">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">📡</span>
+                                            <span class="module-name">手赚动态</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="dynamic_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="dynamic_count" value="15" min="5" max="50">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-item" data-module="hotApps">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">🔥</span>
+                                            <span class="module-name">热门推荐</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="hotApps_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="hotApps_count" value="30" min="5" max="50">
+                                            </div>
+                                            <div class="config-row">
+                                                <label>显示方式：</label>
+                                                <select name="hotApps_layout">
+                                                    <option value="grid">网格布局(5列)</option>
+                                                    <option value="grid4">网格布局(4列)</option>
+                                                    <option value="grid3">网格布局(3列)</option>
+                                                    <option value="list">列表布局</option>
+                                                </select>
+                                            </div>
+                                            <div class="config-row">
+                                                <label>排序方式：</label>
+                                                <select name="hotApps_sort">
+                                                    <option value="downloads">下载量</option>
+                                                    <option value="rating">评分</option>
+                                                    <option value="time">更新时间</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-item" data-module="projects">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">💼</span>
+                                            <span class="module-name">赚钱项目</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="projects_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="projects_count" value="6" min="2" max="12">
+                                            </div>
+                                            <div class="config-row">
+                                                <label>显示方式：</label>
+                                                <select name="projects_layout">
+                                                    <option value="grid2">双列布局</option>
+                                                    <option value="grid3">三列布局</option>
+                                                    <option value="list">列表布局</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-item" data-module="topics">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">🎯</span>
+                                            <span class="module-name">手赚专题</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="topics_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="topics_count" value="6" min="3" max="12">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="module-item" data-module="recent">
+                                        <div class="module-header">
+                                            <span class="drag-handle">☰</span>
+                                            <span class="module-icon">🆕</span>
+                                            <span class="module-name">最近更新</span>
+                                            <label class="module-toggle">
+                                                <input type="checkbox" checked name="recent_enabled">
+                                                <span>启用</span>
+                                            </label>
+                                        </div>
+                                        <div class="module-config">
+                                            <div class="config-row">
+                                                <label>显示数量：</label>
+                                                <input type="number" class="input-small" name="recent_count" value="15" min="5" max="30">
+                                            </div>
+                                            <div class="config-row">
+                                                <label>显示方式：</label>
+                                                <select name="recent_layout">
+                                                    <option value="grid">网格布局</option>
+                                                    <option value="list">列表布局</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 左侧边栏配置 -->
+                            <div class="config-section">
+                                <h3>📐 左侧边栏配置</h3>
+                                <div class="module-item compact">
+                                    <div class="module-header">
+                                        <span class="module-icon">📐</span>
+                                        <span class="module-name">左侧边栏</span>
+                                        <label class="module-toggle">
+                                            <input type="checkbox" checked name="leftSidebar_enabled">
+                                            <span>启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="module-config">
+                                        <div class="config-row">
+                                            <label>显示子模块：</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="left_cat">热门分类</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="left_android">安卓专区</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="left_video">视频专区</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="left_rank">热门排行</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="left_stats">平台数据</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 右侧边栏配置 -->
+                            <div class="config-section">
+                                <h3>📐 右侧边栏配置</h3>
+                                <div class="module-item compact">
+                                    <div class="module-header">
+                                        <span class="module-icon">📐</span>
+                                        <span class="module-name">右侧边栏</span>
+                                        <label class="module-toggle">
+                                            <input type="checkbox" checked name="rightSidebar_enabled">
+                                            <span>启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="module-config">
+                                        <div class="config-row">
+                                            <label>显示子模块：</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="right_notice">网站公告</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="right_ios">苹果专区</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="right_read">阅读专区</label>
+                                            <label class="checkbox-label"><input type="checkbox" checked name="right_news">手赚资讯</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 悬浮动态配置 -->
+                            <div class="config-section">
+                                <h3>💬 悬浮动态配置</h3>
+                                <div class="module-item compact">
+                                    <div class="module-header">
+                                        <span class="module-icon">💬</span>
+                                        <span class="module-name">悬浮动态</span>
+                                        <label class="module-toggle">
+                                            <input type="checkbox" checked name="liveDynamic_enabled">
+                                            <span>启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="module-config">
+                                        <div class="config-row">
+                                            <label>显示位置：</label>
+                                            <select name="liveDynamic_position">
+                                                <option value="bottom-right">右下角</option>
+                                                <option value="bottom-left">左下角</option>
+                                                <option value="top-right">右上角</option>
+                                                <option value="top-left">左上角</option>
+                                            </select>
+                                        </div>
+                                        <div class="config-row">
+                                            <label>显示数量：</label>
+                                            <input type="number" class="input-small" name="liveDynamic_count" value="8" min="3" max="30">
+                                        </div>
+                                        <div class="config-row">
+                                            <label>自动隐藏：</label>
+                                            <select name="liveDynamic_hide">
+                                                <option value="true">空闲时隐藏</option>
+                                                <option value="false">始终显示</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 操作按钮 -->
+                            <div class="config-actions">
+                                <button class="btn btn-primary" onclick="saveHomepageConfig()">保存配置</button>
+                                <button class="btn btn-secondary" onclick="resetHomepageConfig()">重置默认</button>
+                                <button class="btn btn-info" onclick="previewHomepageConfig()">预览效果</button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">添加应用</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="modalForm">
+                    <!-- 应用表单 -->
+                    <div class="form-row" id="appForm">
+                        <div class="form-group">
+                            <label>图标</label>
+                            <input type="text" name="icon" placeholder="📱">
+                        </div>
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input type="text" name="name" placeholder="应用名称">
+                        </div>
+                        <div class="form-group">
+                            <label>分类</label>
+                            <select name="category">
+                                <option value="阅读赚钱">阅读赚钱</option>
+                                <option value="视频赚钱">视频赚钱</option>
+                                <option value="购物赚钱">购物赚钱</option>
+                                <option value="生活服务">生活服务</option>
+                                <option value="社交">社交</option>
+                                <option value="知识">知识</option>
+                                <option value="工具">工具</option>
+                                <option value="音乐">音乐</option>
+                                <option value="游戏">游戏</option>
+                                <option value="金融">金融</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>平台</label>
+                            <select name="platform">
+                                <option value="android">安卓</option>
+                                <option value="ios">苹果</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>评分</label>
+                            <input type="number" name="rating" placeholder="4.5" step="0.1" min="1" max="5">
+                        </div>
+                    </div>
+
+                    <!-- 分类表单 -->
+                    <div class="form-row" id="categoryForm" style="display: none;">
+                        <div class="form-group">
+                            <label>图标</label>
+                            <input type="text" name="icon" placeholder="🔥">
+                        </div>
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input type="text" name="name" placeholder="分类名称">
+                        </div>
+                        <div class="form-group">
+                            <label>首页显示数</label>
+                            <input type="number" name="displayCount" placeholder="6" min="1" max="20">
+                        </div>
+                    </div>
+
+                    <!-- 资讯表单 -->
+                    <div class="form-row" id="newsForm" style="display: none;">
+                        <div class="form-group">
+                            <label>标题</label>
+                            <input type="text" name="title" placeholder="资讯标题">
+                        </div>
+                        <div class="form-group">
+                            <label>内容</label>
+                            <textarea name="content" placeholder="资讯内容"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>分类</label>
+                            <select name="category">
+                                <option value="资讯">资讯</option>
+                                <option value="攻略">攻略</option>
+                                <option value="技巧">技巧</option>
+                                <option value="排行">排行</option>
+                                <option value="指南">指南</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveModalData()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast提示 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="/admin.js"></script>
+</body>
+</html>

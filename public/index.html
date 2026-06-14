@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手赚网 - 手机赚钱软件分享平台</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1> 手赚网</h1>
+                <p>专业手机赚钱软件分享平台</p>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-item active">首页</a>
+                <a href="#apps" class="nav-item">热门推荐</a>
+                <a href="#projects" class="nav-item">赚钱项目</a>
+                <a href="#topics" class="nav-item">手赚专题</a>
+                <a href="#news" class="nav-item">手赚资讯</a>
+                <a href="#about" class="nav-item">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <aside class="left-sidebar">
+            <div class="sidebar-module">
+                <h3><i class="icon-cat"></i>热门分类</h3>
+                <div class="category-list" id="categoryList"></div>
+            </div>
+            <div class="sidebar-module">
+                <h3><i class="icon-android"></i>安卓专区</h3>
+                <div class="filter-tabs" id="androidFilter">
+                    <span class="filter-tab active" data-category="all">全部</span>
+                    <span class="filter-tab" data-category="视频赚钱">视频</span>
+                    <span class="filter-tab" data-category="阅读赚钱">阅读</span>
+                    <span class="filter-tab" data-category="购物赚钱">购物</span>
+                </div>
+                <div class="icon-grid" id="androidQuickList"></div>
+            </div>
+            <div class="sidebar-module">
+                <h3><i class="icon-video"></i>视频专区</h3>
+                <div class="filter-tabs" id="videoFilter">
+                    <span class="filter-tab active" data-category="all">全部</span>
+                    <span class="filter-tab" data-category="视频赚钱">短视频</span>
+                    <span class="filter-tab" data-category="音乐">音乐</span>
+                    <span class="filter-tab" data-category="游戏">游戏</span>
+                </div>
+                <div class="icon-grid" id="videoQuickList"></div>
+            </div>
+            <div class="sidebar-module">
+                <h3><i class="icon-rank"></i>热门排行</h3>
+                <div class="rank-list" id="rankList"></div>
+            </div>
+            <div class="sidebar-module stats-module">
+                <h3><i class="icon-stat"></i>平台数据</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="statApps">0</span>
+                        <span class="stat-label">软件总数</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statDownloads">0</span>
+                        <span class="stat-label">总下载量</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statUsers">0</span>
+                        <span class="stat-label">注册用户</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statActive">0</span>
+                        <span class="stat-label">今日活跃</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="banner">
+                <div class="banner-items">
+                    <div class="banner-item active">
+                        <div class="banner-content">
+                            <h2> 新用户注册立赚10元</h2>
+                            <p>限时活动，高额佣金等你来拿</p>
+                        </div>
+                        <div class="banner-image" style="background: linear-gradient(135deg, #dc2626, #991b1b);"></div>
+                    </div>
+                    <div class="banner-item">
+                        <div class="banner-content">
+                            <h2> 热门赚钱APP推荐</h2>
+                            <p>精选优质赚钱软件，提现秒到账</p>
+                        </div>
+                        <div class="banner-image" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></div>
+                    </div>
+                    <div class="banner-item">
+                        <div class="banner-content">
+                            <h2> 邀请好友赚佣金</h2>
+                            <p>每邀请一人奖励5元，上不封顶</p>
+                        </div>
+                        <div class="banner-image" style="background: linear-gradient(135deg, #f87171, #ef4444);"></div>
+                    </div>
+                </div>
+                <div class="banner-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <div class="section" id="apps">
+                <div class="section-header">
+                    <h2><span class="title-icon">🔥</span>热门推荐</h2>
+                    <a href="#" class="more-link">更多软件 ›</a>
+                </div>
+                <div class="apps-grid" id="appsGrid"></div>
+            </div>
+
+            <div class="section" id="projects">
+                <div class="section-header">
+                    <h2><span class="title-icon"></span>赚钱项目</h2>
+                    <a href="#" class="more-link">更多项目 </a>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <span class="project-tag">搞钱项目</span>
+                        <h3><a href="#">流量卡推广赚钱一单100元左右，不限速</a></h3>
+                        <p><span>05-18</span><span>11871浏览</span></p>
+                    </div>
+                    <div class="project-card">
+                        <span class="project-tag">搞钱项目</span>
+                        <h3><a href="#">欧易交易所新用户注册，实名认证以及买币教程</a></h3>
+                        <p><span>05-17</span><span>8542浏览</span></p>
+                    </div>
+                    <div class="project-card">
+                        <span class="project-tag">搞钱项目</span>
+                        <h3><a href="#">拼多多砍一刀助力，轻松赚零花钱</a></h3>
+                        <p><span>05-16</span><span>15230浏览</span></p>
+                    </div>
+                    <div class="project-card">
+                        <span class="project-tag">搞钱项目</span>
+                        <h3><a href="#">抖音点赞关注赚钱，简单又轻松</a></h3>
+                        <p><span>05-15</span><span>9653浏览</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="topics">
+                <div class="section-header">
+                    <h2><span class="title-icon"></span>手赚专题</h2>
+                    <a href="#" class="more-link">更多专题 </a>
+                </div>
+                <div class="topics-grid">
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>新手必看</h3>
+                        <p>新手入门指南</p>
+                    </div>
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>高佣软件</h3>
+                        <p>精选高佣金赚钱软件</p>
+                    </div>
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>薅羊毛攻略</h3>
+                        <p>最新羊毛活动汇总</p>
+                    </div>
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>游戏赚钱</h3>
+                        <p>边玩游戏边赚钱</p>
+                    </div>
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>阅读赚钱</h3>
+                        <p>读书也能赚零花钱</p>
+                    </div>
+                    <div class="topic-card">
+                        <span class="topic-icon"></span>
+                        <h3>邀请赚钱</h3>
+                        <p>邀请好友赚佣金</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="recent">
+                <div class="section-header">
+                    <h2><span class="title-icon">🆕</span>最近更新</h2>
+                    <a href="#" class="more-link">更多软件 ›</a>
+                </div>
+                <div class="recent-apps-grid" id="recentAppsGrid"></div>
+            </div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="sidebar-module notice-module">
+                <h3><i class="icon-notice"></i>网站公告</h3>
+                <div class="notice-content">
+                    <p> 新增多款高佣金赚钱软件</p>
+                    <p> 安卓苹果双端支持</p>
+                    <p> 提现秒到账，安全可靠</p>
+                </div>
+            </div>
+            <div class="sidebar-module">
+                <h3><i class="icon-ios"></i>苹果专区</h3>
+                <div class="filter-tabs" id="iosFilter">
+                    <span class="filter-tab active" data-category="all">全部</span>
+                    <span class="filter-tab" data-category="视频赚钱">视频</span>
+                    <span class="filter-tab" data-category="阅读赚钱">阅读</span>
+                    <span class="filter-tab" data-category="购物赚钱">购物</span>
+                </div>
+                <div class="icon-grid" id="iosQuickList"></div>
+            </div>
+            <div class="sidebar-module">
+                <h3><i class="icon-read"></i>阅读专区</h3>
+                <div class="filter-tabs" id="readFilter">
+                    <span class="filter-tab active" data-category="all">全部</span>
+                    <span class="filter-tab" data-category="阅读赚钱">资讯</span>
+                    <span class="filter-tab" data-category="知识">知识</span>
+                    <span class="filter-tab" data-category="社交">社交</span>
+                </div>
+                <div class="icon-grid" id="readQuickList"></div>
+            </div>
+            <div class="sidebar-module" id="news">
+                <h3><i class="icon-news"></i>手赚资讯</h3>
+                <div class="news-list" id="newsList"></div>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <p>手赚网是专业的手机赚钱软件分享平台，致力于为用户提供安全可靠的赚钱APP推荐。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <p>邮箱: contact@shouzhan.com</p>
+                    <p>QQ: 123456789</p>
+                </div>
+                <div class="footer-section">
+                    <h4>免责声明</h4>
+                    <p>本站仅提供软件分享，不承担任何使用风险。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p> 2024 手赚网 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 悬浮动态组件 -->
+    <div class="float-dynamic">
+        <div class="float-header">
+            <span class="float-title">📡 实时下载动态</span>
+            <span class="float-live">LIVE</span>
+        </div>
+        <div class="float-list" id="floatDynamicList"></div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
