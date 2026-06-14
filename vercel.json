@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "shouzwan",
   "builds": [
     {
       "src": "server.js",
@@ -17,15 +18,18 @@
     },
     {
       "src": "/admin",
-      "dest": "/server.js"
+      "dest": "/public/admin.html"
     },
     {
-      "src": "/",
-      "dest": "/server.js"
+      "src": "/admin.html",
+      "dest": "/public/admin.html"
     },
     {
       "src": "/(.*)",
       "dest": "/server.js"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
