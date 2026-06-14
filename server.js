@@ -158,6 +158,15 @@ app.delete('/api/apps/:id', authMiddleware, (req, res) => {
     }
 });
 
+app.get('/api/apps/:id', (req, res) => {
+    const app = apps.find(a => a.id === parseInt(req.params.id));
+    if (app) {
+        res.json(app);
+    } else {
+        res.status(404).json({ success: false, message: '应用不存在' });
+    }
+});
+
 app.post('/api/apps/:id/download', (req, res) => {
     const index = apps.findIndex(a => a.id === parseInt(req.params.id));
     if (index !== -1) {
@@ -174,6 +183,15 @@ app.post('/api/categories', authMiddleware, (req, res) => {
     const newCategory = { id: Date.now(), ...req.body, displayCount: req.body.displayCount || 6, sortOrder: categories.length + 1 };
     categories.push(newCategory);
     res.json({ success: true, data: newCategory });
+});
+
+app.get('/api/categories/:id', (req, res) => {
+    const category = categories.find(c => c.id === parseInt(req.params.id));
+    if (category) {
+        res.json(category);
+    } else {
+        res.status(404).json({ success: false, message: '分类不存在' });
+    }
 });
 
 app.put('/api/categories/:id', authMiddleware, (req, res) => {
@@ -199,6 +217,15 @@ app.delete('/api/categories/:id', authMiddleware, (req, res) => {
 app.get('/api/news', (req, res) => {
     const { limit = 5 } = req.query;
     res.json(news.slice(0, parseInt(limit)));
+});
+
+app.get('/api/news/:id', (req, res) => {
+    const item = news.find(n => n.id === parseInt(req.params.id));
+    if (item) {
+        res.json(item);
+    } else {
+        res.status(404).json({ success: false, message: '资讯不存在' });
+    }
 });
 
 app.post('/api/news', authMiddleware, (req, res) => {

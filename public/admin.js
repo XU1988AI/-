@@ -284,10 +284,23 @@ async function saveModalData() {
     });
     
     let result;
+    let url;
     if (currentEditId) {
-        result = await fetchAPI(`/api/${currentEditType}s/${currentEditId}`, 'PUT', data);
+        // 特殊处理复数形式不规则的资源
+        if (currentEditType === 'category') {
+            url = `/api/categories/${currentEditId}`;
+        } else if (currentEditType === 'news') {
+            url = `/api/news/${currentEditId}`;
+        } else {
+            url = `/api/${currentEditType}s/${currentEditId}`;
+        }
+        result = await fetchAPI(url, 'PUT', data);
     } else {
-        result = await fetchAPI(`/api/${currentEditType}s`, 'POST', data);
+        // 特殊处理复数形式不规则的资源
+        url = `/api/${currentEditType}s`;
+        if (currentEditType === 'category') url = '/api/categories';
+        if (currentEditType === 'news') url = '/api/news';
+        result = await fetchAPI(url, 'POST', data);
     }
     
     if (result.success) {
