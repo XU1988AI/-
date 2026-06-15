@@ -16,6 +16,7 @@ async function loadApps() {
     renderQuickList('videoQuickList', appsData.filter(a => ['视频赚钱', '音乐', '游戏'].includes(a.category)).slice(0, 6));
     renderQuickList('iosQuickList', appsData.filter(a => a.platform === 'ios').slice(0, 6));
     renderQuickList('readQuickList', appsData.filter(a => ['阅读赚钱', '知识', '社交'].includes(a.category)).slice(0, 6));
+    renderQuickList('bountyQuickList', appsData.filter(a => ['悬赏赚钱', '微信辅助', '转发赚钱'].includes(a.category)).slice(0, 6));
     renderRecentList(appsData);
     initFilterTabs();
 }
@@ -121,7 +122,7 @@ async function loadCategories() {
     const container = document.getElementById('categoryList');
     if (!container) return;
     container.innerHTML = categories.map(cat => `
-        <span class="category-item" data-category="${cat.name}">
+        <span class="category-item" data-category="${cat.name}" ${cat.name === '安卓赚钱' ? 'data-action="scroll-to-android"' : ''}>
             <span>${cat.icon || ''}</span>
             <span>${cat.name}</span>
         </span>
@@ -131,7 +132,19 @@ async function loadCategories() {
     container.querySelectorAll('.category-item').forEach(item => {
         item.addEventListener('click', () => {
             const category = item.dataset.category;
-            filterAppsByCategory(category);
+            const action = item.dataset.action;
+            
+            if (action === 'scroll-to-android') {
+                // 跳转到安卓专区
+                const androidSection = document.getElementById('androidFilter');
+                if (androidSection) {
+                    androidSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    androidSection.classList.add('highlight');
+                    setTimeout(() => androidSection.classList.remove('highlight'), 1500);
+                }
+            } else {
+                filterAppsByCategory(category);
+            }
         });
     });
 }
@@ -266,6 +279,19 @@ function initFilterTabs() {
                 filtered = filtered.filter(a => a.category === category);
             }
             renderQuickList('readQuickList', filtered.slice(0, 6));
+        }
+    });
+
+    document.getElementById('bountyFilter')?.addEventListener('click', (e) => {
+        if (e.target.classList.contains('filter-tab')) {
+            document.querySelectorAll('#bountyFilter .filter-tab').forEach(tab => tab.classList.remove('active'));
+            e.target.classList.add('active');
+            const category = e.target.dataset.category;
+            let filtered = appsData.filter(a => ['悬赏赚钱', '微信辅助', '转发赚钱'].includes(a.category));
+            if (category !== 'all') {
+                filtered = filtered.filter(a => a.category === category);
+            }
+            renderQuickList('bountyQuickList', filtered.slice(0, 6));
         }
     });
 }

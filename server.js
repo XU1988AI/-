@@ -44,6 +44,16 @@ let apps = [
     { id: 28, name: '明日方舟', icon: '🛡️', category: '游戏', platform: 'ios', downloads: 89000, rating: 4.7, status: 'online' },
     { id: 29, name: '支付宝', icon: '💳', category: '金融', platform: 'android', downloads: 189000, rating: 4.8, status: 'online' },
     { id: 30, name: '微信支付', icon: '💰', category: '金融', platform: 'ios', downloads: 178000, rating: 4.9, status: 'online' },
+    { id: 31, name: '蚂蚁微客', icon: '🐜', category: '悬赏赚钱', platform: 'android', downloads: 45600, rating: 4.5, status: 'online' },
+    { id: 32, name: '众人帮', icon: '👥', category: '悬赏赚钱', platform: 'android', downloads: 89000, rating: 4.6, status: 'online' },
+    { id: 33, name: '趣闲赚', icon: '🎯', category: '悬赏赚钱', platform: 'ios', downloads: 56700, rating: 4.4, status: 'online' },
+    { id: 34, name: '微信解封', icon: '🔓', category: '微信辅助', platform: 'android', downloads: 34500, rating: 4.2, status: 'online' },
+    { id: 35, name: '微群助手', icon: '💬', category: '微信辅助', platform: 'ios', downloads: 23400, rating: 4.3, status: 'online' },
+    { id: 36, name: '转发宝', icon: '🔄', category: '转发赚钱', platform: 'android', downloads: 67800, rating: 4.5, status: 'online' },
+    { id: 37, name: '分享赚', icon: '📤', category: '转发赚钱', platform: 'ios', downloads: 45600, rating: 4.4, status: 'online' },
+    { id: 38, name: '赚钱游戏', icon: '🎮', category: '游戏赚钱', platform: 'android', downloads: 123000, rating: 4.7, status: 'online' },
+    { id: 39, name: '游戏试玩', icon: '🎯', category: '游戏赚钱', platform: 'ios', downloads: 87600, rating: 4.6, status: 'online' },
+    { id: 40, name: '手游赚', icon: '📱', category: '游戏赚钱', platform: 'android', downloads: 98700, rating: 4.5, status: 'online' },
 ];
 
 let categories = [
@@ -53,6 +63,10 @@ let categories = [
     { id: 4, name: '购物赚钱', icon: '', displayCount: 8, sortOrder: 4 },
     { id: 5, name: '安卓赚钱', icon: '', displayCount: 6, sortOrder: 5 },
     { id: 6, name: '苹果赚钱', icon: '', displayCount: 6, sortOrder: 6 },
+    { id: 7, name: '悬赏赚钱', icon: '', displayCount: 6, sortOrder: 7 },
+    { id: 8, name: '微信辅助', icon: '', displayCount: 6, sortOrder: 8 },
+    { id: 9, name: '转发赚钱', icon: '', displayCount: 6, sortOrder: 9 },
+    { id: 10, name: '游戏赚钱', icon: '', displayCount: 6, sortOrder: 10 },
 ];
 
 let news = [

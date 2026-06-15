@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "name": "shouzwan",
+  "name": "shouzhan",
   "builds": [
     {
       "src": "server.js",
       "use": "@vercel/node"
     },
     {
-      "src": "public/**",
+      "src": "public/**/*",
       "use": "@vercel/static"
     }
   ],
@@ -30,6 +30,9 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production"
-  }
+    "NODE_ENV": "production",
+    "PORT": "3000"
+  },
+  "installCommand": "npm install",
+  "buildCommand": "npm install"
 }
