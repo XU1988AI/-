@@ -1,0 +1,19 @@
+# render.yaml - Render 自动化部署配置
+# 官网文档: https://render.com/docs/deploy-anything
+
+services:
+  - type: web
+    name: shouzhan
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          envVarKey: PORT
